@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: lemonade --default;
+}
+@plugin "daisyui/theme" {
+  name: "lemonade";
+  default: true;
+  --color-primary: #003417;
+}

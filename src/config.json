@@ -1,0 +1,56 @@
+{
+  "businessName": "Kudu Advisory",
+  "bookingLink": "",
+  "description": "Kudu Advisory is a bespoke Chartered Accounting firm owned and operated by Ryan Vergottini (CA). We provide tailored accounting services to unique and beautiful small businesses here in New Zealand.",
+  "pages": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Our Story",
+      "url": "/about-us"
+    },
+    {
+      "name": "What We Do",
+      "url": "/services"
+    },
+    {
+      "name": "Our Impact",
+      "url": "/programs"
+    },
+    {
+      "name": "Contact",
+      "url": "/#contact"
+    }
+  ],
+  "address": "123 Fake St, Auckland",
+  "phone": { "name": "0800 2663 473", "url": "tel:+6408002663473" },
+  "email": {
+    "name": "christian@elevatestudios.nz",
+    "url": "mailto:christian@elevatestudios.nz"
+  },
+  "socials": [
+    {
+      "name": "instagram",
+      "icon": "mdi:instagram",
+      "url": "https://www.instagram.com/elevatestudios_nz"
+    },
+    {
+      "name": "linkedin",
+      "icon": "mdi:linkedin",
+      "url": "https://www.linkedin.com/company/elevate-studios-nz/"
+    },
+    {
+      "name": "youtube",
+      "icon": "mdi:youtube",
+      "url": "https://www.youtube.com/@ElevateStudios_NZ"
+    },
+    {
+      "name": "tiktok",
+      "icon": "ic:baseline-tiktok",
+      "url": "https://www.tiktok.com/@elevatestudios_nz?is_from_webapp=1&sender_device=pc"
+    }
+  ],
+  "reviews": []
+}
