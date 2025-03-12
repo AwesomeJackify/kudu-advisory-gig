@@ -6,4 +6,6 @@
   name: "lemonade";
   default: true;
   --color-primary: #003417;
+  --color-secondary: #8c5c34;
+  --color-accent: #ea7600;
 }

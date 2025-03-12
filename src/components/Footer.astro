@@ -1,0 +1,62 @@
+---
+import logo from "../assets/images/logo.png";
+import config from "../config.json";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import astroLogo from "../assets/images/AstroMediaLogo.svg";
+---
+
+<footer class="footer bg-secondary text-secondary-content p-10">
+  <aside>
+    <Image src={logo} alt={config.businessName} class="w-44" />
+  </aside>
+  <nav>
+    <h6 class="footer-title">Main Menu</h6>
+    {
+      config.pages.map((page) => (
+        <a href={page.url} class="link link-hover">
+          {page.name}
+        </a>
+      ))
+    }
+  </nav>
+  <!-- <nav>
+    <h6 class="footer-title">Contact</h6>
+    <a href={config.email.url} class="link link-hover">
+      {config.email.name}
+    </a>
+    <a href={config.phone.url} class="link link-hover">
+      {config.phone.name}
+    </a>
+  </nav> -->
+  <nav class="flex flex-col">
+    <h6 class="footer-title">Socials</h6>
+    <div class="flex gap-2">
+      {
+        config.socials.map((social) => (
+          <a href={social.url} class="link link-hover" target="_blank">
+            <Icon
+              name={social.icon}
+              class="text-4xl hover:text-base-200 transition-all"
+            />
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+  <nav class="flex flex-col justify-end h-full">
+    <p class="flex items-center gap-1 max-md:self-center">
+      Made possible by <a
+        href="https://astromedia.dev"
+        class="link hover:text-base-200 transition-colors"
+        target="_blank">Astro Media</a
+      ><Image
+        class="w-5"
+        src={astroLogo}
+        width={10}
+        height={10}
+        alt="digital agency"
+      />
+    </p>
+  </nav>
+</footer>

@@ -8,20 +8,16 @@
       "url": "/"
     },
     {
-      "name": "Our Story",
-      "url": "/about-us"
-    },
-    {
-      "name": "What We Do",
+      "name": "Services",
       "url": "/services"
     },
     {
-      "name": "Our Impact",
-      "url": "/programs"
+      "name": "Articles",
+      "url": "/articles"
     },
     {
-      "name": "Contact",
-      "url": "/#contact"
+      "name": "Podcast",
+      "url": "/podcast"
     }
   ],
   "address": "123 Fake St, Auckland",
