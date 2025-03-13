@@ -5,7 +5,10 @@ import { Icon } from "astro-icon/components";
 import services from "../data/services.ts";
 import ServiceCard from "../components/ServiceCard.astro";
 
-import profileImg from "../assets/images/profile.jpg";
+import profileImg1 from "../assets/images/profile1.jpg";
+import profileImg2 from "../assets/images/profile2.jpg";
+import profileImg3 from "../assets/images/profile3.jpg";
+
 import signatureImg from "../assets/images/signature.png";
 
 import config from "../config.json";
@@ -64,11 +67,11 @@ import faqs from "../data/faqs";
             />
           </div>
           <div class="flex flex-col items-center">
-            <div class="w-1/2 flex flex-col gap-4">
+            <div class="w-2/3 flex flex-col gap-4">
               <Image
-                src={profileImg}
+                src={profileImg1}
                 alt="Profile Image"
-                class="rounded-[64px]"
+                class="rounded-[64px] w-full"
               />
               <div class="relative h-full w-full pb-16">
                 <h2 class="text-right font-light italic">
@@ -81,6 +84,51 @@ import faqs from "../data/faqs";
                 />
               </div>
             </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-16 w-full place-items-center">
+          <div class="grid grid-cols-2 gap-4">
+            <Image
+              src={profileImg2}
+              alt="Profile Image 2"
+              class="aspect-1/1.5 object-cover"
+            />
+            <Image
+              src={profileImg3}
+              alt="Profile Image 3"
+              class="aspect-1/1.5 object-cover mt-44"
+            />
+          </div>
+          <div class="p-16 relative">
+            <Icon
+              name="mdi:format-quote-close"
+              class="absolute -top-8 -left-8 text-9xl -scale-x-100 text-primary"
+            />
+            <p>
+              I work with clients that are looking to develop a long-term
+              relationship with their accountant.
+              <br />
+              <br />
+              You are looking to discuss and open up to me about your personal finances
+              so that I can help guide you through financial decisions.
+              <br />
+              <br />
+              You're passionate about what you do, and you're wanting to understand
+              the financial picture a little bit better. You're looking for someone
+              trustworthy to guide you.
+              <br />
+              <br />
+              As they say, your accountant becomes ever more valuable the longer
+              you are with them, as they come to understand you better, along with
+              your business.
+              <br />
+              <br />
+              I look forward to speaking with you.
+            </p>
+            <Icon
+              name="mdi:format-quote-close"
+              class="absolute -bottom-8 -right-8 text-9xl text-primary"
+            />
           </div>
         </div>
       </div>
