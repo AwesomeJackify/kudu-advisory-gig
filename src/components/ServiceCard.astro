@@ -6,11 +6,11 @@ const { title, description, isMostPopular, features, url, index, length } =
 ---
 
 <div
-  class={`border-stone-400 border-t border-b rounded-t-2xl py-8 px-4 gap-4 flex flex-col
-  ${index === 0 ? "border-l" : ""} 
-  ${index === length - 1 ? "border-r" : ""}
-  ${index > 0 && index < length - 1 && "border-x"}
-  ${isMostPopular ? "mt-0" : "mt-16"}
+  class={`border-stone-400 md:border-t md:border-b rounded-t-2xl py-8 px-4 gap-4 flex flex-col max-md:border
+  ${index === 0 ? "md:border-l" : ""} 
+  ${index === length - 1 ? "md:border-r" : ""}
+  ${index > 0 && index < length - 1 && "md:border-x"}
+  ${isMostPopular ? "mt-0" : "md:mt-16"}
 `}
 >
   <h1 class="text-primary text-2xl flex flex-col gap-2">

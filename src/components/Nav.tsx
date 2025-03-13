@@ -99,7 +99,7 @@ const Nav = ({ isAbsolute }: Props) => {
         </div>
         <ul
           ref={mobileNavRef}
-          className={`flex flex-col overflow-hidden z-50 h-0`}
+          className={`flex flex-col overflow-hidden z-50 h-0 bg-base-100`}
         >
           {config.pages.map((page, index) => (
             <li key={index} className="py-4 px-8">

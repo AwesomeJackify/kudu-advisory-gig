@@ -9,7 +9,7 @@ import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -23,7 +23,7 @@ import Footer from "../components/Footer.astro";
     <title>{title}</title>
   </head>
   <body>
-    <Nav isAbsolute />
+    <Nav isAbsolute client:only="react" />
     <slot />
     <Footer />
   </body>
