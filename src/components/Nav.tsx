@@ -34,9 +34,13 @@ const Nav = ({ isAbsolute }: Props) => {
 
   useEffect(() => {
     if (showNav) {
-      tl.current && tl.current.play();
+      if (tl.current) {
+        tl.current.play();
+      }
     } else {
-      tl.current && tl.current.reverse();
+      if (tl.current) {
+        tl.current.reverse();
+      }
     }
   }, [showNav]);
 
@@ -70,7 +74,8 @@ const Nav = ({ isAbsolute }: Props) => {
           <a
             href={config.bookingLink}
             target="_blank"
-            className="btn btn-accent text-white"
+            rel="noreferrer"
+            className="btn btn-accent"
           >
             Book Your Free Chat
           </a>
