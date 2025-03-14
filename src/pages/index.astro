@@ -5,6 +5,7 @@ import { Icon } from "astro-icon/components";
 import { Cloudinary } from "@cloudinary/url-gen";
 import services from "../data/services.ts";
 import ServiceCard from "../components/ServiceCard.astro";
+import ToggleMuteButton from "../components/ToggleMuteButton.tsx";
 
 import profileImg1 from "../assets/images/profile1.jpg";
 import profileImg2 from "../assets/images/profile2.jpg";
@@ -39,6 +40,9 @@ const introVideoURL = introVideo.toURL();
       >
         <source src={introVideoURL} type="video/mp4" />
       </video>
+      <div class="absolute bottom-4 right-4 z-50">
+        <ToggleMuteButton client:only="react" />
+      </div>
       <div
         class="max-w-7xl mx-auto relative h-full flex flex-col max-md:gap-8 px-4"
       >
