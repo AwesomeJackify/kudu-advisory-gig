@@ -11,3 +11,4 @@
   --color-secondary-content: black;
   --color-accent: #dda478;
 }
+@plugin '@tailwindcss/typography';

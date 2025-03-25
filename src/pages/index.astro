@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { Cloudinary } from "@cloudinary/url-gen";
-import services from "../data/services.ts";
+import { getCollection } from "astro:content";
 import ServiceCard from "../components/ServiceCard.astro";
 import ToggleMuteButton from "../components/ToggleMuteButton.tsx";
 
@@ -25,6 +25,16 @@ const cld = new Cloudinary({
 
 const introVideo = cld.video("kudu-advisory/kudu-advisory-hero");
 const introVideoURL = introVideo.toURL();
+
+const services = await getCollection("services");
+
+const reorderedServices = [...services];
+const popularIndex = reorderedServices.findIndex((s) => s.data.isMostPopular);
+if (popularIndex !== -1) {
+  const [mostPopular] = reorderedServices.splice(popularIndex, 1); // remove it
+  const middleIndex = Math.floor(reorderedServices.length / 2);
+  reorderedServices.splice(middleIndex, 0, mostPopular); // insert at middle
+}
 ---
 
 <Layout title={config.businessName}>
@@ -165,16 +175,17 @@ const introVideoURL = introVideo.toURL();
         </div>
       </div>
     </section>
-    <section class="bg-base-200 py-16">
+    <section class="bg-base-200 py-16" id="services">
       <div class="max-w-7xl mx-auto flex flex-col gap-16 px-4">
         <h1 class="text-7xl font-bold text-center text-primary max-md:text-5xl">
           Services
         </h1>
         <div class="grid grid-cols-3 max-md:grid-cols-1 max-md:gap-8">
           {
-            services.map((service, index) => (
+            reorderedServices.map((service, index) => (
               <ServiceCard
-                {...service}
+                {...service.data}
+                slug={service.id.replace(".md", "")}
                 index={index}
                 length={services.length}
               />

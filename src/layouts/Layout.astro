@@ -6,6 +6,8 @@ const { title } = Astro.props;
 
 import Nav from "../components/Nav";
 import Footer from "../components/Footer.astro";
+
+const isAbsolute = true;
 ---
 
 <!doctype html>
@@ -23,7 +25,7 @@ import Footer from "../components/Footer.astro";
     <title>{title}</title>
   </head>
   <body>
-    <Nav isAbsolute client:only="react" />
+    <Nav isAbsolute={isAbsolute} client:only="react" />
     <slot />
     <Footer />
   </body>

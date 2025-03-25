@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { getEntry, render } from "astro:content";
+import Prose from "../../components/Prose.astro";
+
+export function getStaticPaths() {
+  return [
+    { params: { service: "asset-protection" } },
+    { params: { service: "tax-and-compliance" } },
+    { params: { service: "performance-catchups" } },
+  ];
+}
+
+const { service } = Astro.params;
+
+const serviceData = await getEntry("services", service);
+if (!serviceData) {
+  // Handle Error, for example:
+  throw new Error("Could not find service.");
+}
+
+const { Content } = await render(serviceData);
+---
+
+<Layout title={serviceData.data.title}>
+  <div class="flex flex-col gap-16 max-md:gap-8 overflow-x-clip my-32 md:mt-64">
+    <section class="w-full">
+      <div class="max-w-7xl mx-auto flex flex-col gap-16 px-4">
+        <h1 class="text-7xl font-bold text-center text-primary max-md:text-5xl">
+          {serviceData.data.title}
+        </h1>
+        <div class="mx-auto">
+          <Prose>
+            <Content />
+          </Prose>
+        </div>
+      </div>
+    </section>
+  </div></Layout
+>

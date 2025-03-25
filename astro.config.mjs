@@ -11,6 +11,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-
+  redirects: {
+    "/services": "/#services",
+    "/blog": "https://example.com/blog",
+  },
   integrations: [react(), icon()],
 });

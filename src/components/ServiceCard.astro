@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 
-const { title, description, isMostPopular, features, url, index, length } =
+const { title, description, isMostPopular, features, index, length, slug } =
   Astro.props;
 ---
 
@@ -35,6 +35,6 @@ const { title, description, isMostPopular, features, url, index, length } =
         }
       </ul>
     </div>
-    <a href={url} class="btn btn-accent self-end">Learn more</a>
+    <a href={"/services/" + slug} class="btn btn-accent self-end">Learn more</a>
   </div>
 </div>
