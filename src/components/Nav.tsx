@@ -48,7 +48,9 @@ const Nav = ({ isAbsolute }: Props) => {
     <div>
       <div
         className={`navbar z-50 ${
-          isAbsolute ? "absolute top-0 left-0 bg-transparent" : "bg-primary"
+          isAbsolute
+            ? "absolute top-0 left-0 bg-transparent"
+            : "bg-primary mb-16"
         } max-md:hidden py-4`}
       >
         <div className={`navbar-start ${isAbsolute ? "" : ""}`}>
@@ -57,7 +59,7 @@ const Nav = ({ isAbsolute }: Props) => {
               <li
                 key={index}
                 className={`text-xl max-lg:text-sm ${
-                  isAbsolute ? "" : ""
+                  isAbsolute ? "" : "text-primary-content"
                 } transition`}
               >
                 <a href={page.url}>{page.name}</a>
@@ -66,7 +68,7 @@ const Nav = ({ isAbsolute }: Props) => {
           </ul>
         </div>
         <div className="navbar-center">
-          <a className="btn btn-ghost btn-xl" href="/">
+          <a className={`btn btn-xl ${isAbsolute ? "" : "btn-soft"}`} href="/">
             <img src={logo.src} className="w-72" alt="logo" />
           </a>
         </div>
@@ -84,7 +86,7 @@ const Nav = ({ isAbsolute }: Props) => {
       <div
         className={`flex flex-col ${
           isAbsolute ? "absolute top-0 left-0" : ""
-        }  w-full h-full z-50 md:hidden`}
+        }  w-full h-full z-50 md:hidden mb-0`}
       >
         <div className="flex justify-between items-center py-4 px-4 sticky">
           <a className="btn btn-ghost btn-lg" href="/">

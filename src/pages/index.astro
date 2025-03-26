@@ -6,6 +6,7 @@ import { Cloudinary } from "@cloudinary/url-gen";
 import { getCollection } from "astro:content";
 import ServiceCard from "../components/ServiceCard.astro";
 import ToggleMuteButton from "../components/ToggleMuteButton.tsx";
+import SectionBlock from "../components/blocks/SectionBlock.astro";
 
 import profileImg1 from "../assets/images/profile1.jpg";
 import profileImg2 from "../assets/images/profile2.jpg";
@@ -37,7 +38,7 @@ if (popularIndex !== -1) {
 }
 ---
 
-<Layout title={config.businessName}>
+<Layout isAbsolute={true} title={config.businessName}>
   <div class="flex flex-col gap-16 max-md:gap-8 overflow-x-clip">
     <section class="h-screen w-full pt-32 relative">
       <video
@@ -69,173 +70,149 @@ if (popularIndex !== -1) {
         </div>
       </div>
     </section>
-    <section>
-      <div class="max-w-7xl mx-auto flex flex-col gap-16 px-4">
-        <h1 class="text-7xl font-bold text-center text-primary max-md:text-5xl">
-          Accounting Servces for Small Businesses
-        </h1>
-        <div
-          class="grid grid-cols-2 max-md:grid-cols-1 gap-16 w-full place-items-center"
-        >
-          <div class="p-16 relative">
-            <Icon
-              name="mdi:format-quote-close"
-              class="absolute -top-8 -left-8 text-9xl -scale-x-100 text-primary"
+    <SectionBlock heading="Accounting Servces for Small Businesses">
+      <div
+        class="grid grid-cols-2 max-md:grid-cols-1 gap-16 w-full place-items-center"
+      >
+        <div class="p-16 relative">
+          <Icon
+            name="mdi:format-quote-close"
+            class="absolute -top-8 -left-8 text-9xl -scale-x-100 text-primary"
+          />
+          <p>
+            I founded Kudu Advisory so that I could get up close to businesses.
+            <br />
+            <br />
+            I've always had a passion for business, and always wondered what the
+            story was behind each that I came across — whether that be the little
+            Korean pancake shop I visited at university, the plumber that would fix
+            the leaky tap at home, or the new owners of the local McDonald's franchise.
+            <br />
+            <br />
+            What makes them tick? Why have they chosen this path in life? There is
+            so much nuance behind every small business, and I want to develop long
+            term relationships with my clients so that I get to be involved in that
+            nuance, and hopefully add a little bit of my own.
+          </p>
+          <Icon
+            name="mdi:format-quote-close"
+            class="absolute -bottom-8 -right-8 text-9xl text-primary"
+          />
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-2/3 flex flex-col gap-4">
+            <Image
+              src={profileImg1}
+              alt="Profile Image"
+              class="rounded-[64px] w-full"
             />
-            <p>
-              I founded Kudu Advisory so that I could get up close to
-              businesses.
-              <br />
-              <br />
-              I've always had a passion for business, and always wondered what the
-              story was behind each that I came across — whether that be the little
-              Korean pancake shop I visited at university, the plumber that would
-              fix the leaky tap at home, or the new owners of the local McDonald's
-              franchise.
-              <br />
-              <br />
-              What makes them tick? Why have they chosen this path in life? There
-              is so much nuance behind every small business, and I want to develop
-              long term relationships with my clients so that I get to be involved
-              in that nuance, and hopefully add a little bit of my own.
-            </p>
-            <Icon
-              name="mdi:format-quote-close"
-              class="absolute -bottom-8 -right-8 text-9xl text-primary"
-            />
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="w-2/3 flex flex-col gap-4">
+            <div class="relative h-full w-full pb-16">
+              <h2 class="text-right font-light italic">Ryan Vergottini (CA)</h2>
               <Image
-                src={profileImg1}
-                alt="Profile Image"
-                class="rounded-[64px] w-full"
+                src={signatureImg}
+                alt="Signature"
+                class="w-36 absolute bottom-4 -right-8"
               />
-              <div class="relative h-full w-full pb-16">
-                <h2 class="text-right font-light italic">
-                  Ryan Vergottini (CA)
-                </h2>
-                <Image
-                  src={signatureImg}
-                  alt="Signature"
-                  class="w-36 absolute bottom-4 -right-8"
-                />
-              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        class="grid grid-cols-2 max-md:grid-cols-1 gap-16 w-full place-items-center"
+      >
         <div
-          class="grid grid-cols-2 max-md:grid-cols-1 gap-16 w-full place-items-center"
+          class="grid grid-cols-2 max-md:grid-cols-1 md:gap-4 place-items-center"
         >
-          <div
-            class="grid grid-cols-2 max-md:grid-cols-1 md:gap-4 place-items-center"
-          >
-            <Image
-              src={profileImg2}
-              alt="Profile Image 2"
-              class="aspect-1/1.5 object-cover"
-            />
-            <Image
-              src={profileImg3}
-              alt="Profile Image 3"
-              class="aspect-1/1.5 object-cover md:mt-44"
-            />
-          </div>
-          <div class="p-16 relative">
-            <Icon
-              name="mdi:format-quote-close"
-              class="absolute -top-8 -left-8 text-9xl -scale-x-100 text-primary"
-            />
-            <p>
-              I work with clients that are looking to develop a long-term
-              relationship with their accountant.
-              <br />
-              <br />
-              You are looking to discuss and open up to me about your personal finances
-              so that I can help guide you through financial decisions.
-              <br />
-              <br />
-              You're passionate about what you do, and you're wanting to understand
-              the financial picture a little bit better. You're looking for someone
-              trustworthy to guide you.
-              <br />
-              <br />
-              As they say, your accountant becomes ever more valuable the longer
-              you are with them, as they come to understand you better, along with
-              your business.
-              <br />
-              <br />
-              I look forward to speaking with you.
-            </p>
-            <Icon
-              name="mdi:format-quote-close"
-              class="absolute -bottom-8 -right-8 text-9xl text-primary"
-            />
-          </div>
+          <Image
+            src={profileImg2}
+            alt="Profile Image 2"
+            class="aspect-1/1.5 object-cover"
+          />
+          <Image
+            src={profileImg3}
+            alt="Profile Image 3"
+            class="aspect-1/1.5 object-cover md:mt-44"
+          />
+        </div>
+        <div class="p-16 relative">
+          <Icon
+            name="mdi:format-quote-close"
+            class="absolute -top-8 -left-8 text-9xl -scale-x-100 text-primary"
+          />
+          <p>
+            I work with clients that are looking to develop a long-term
+            relationship with their accountant.
+            <br />
+            <br />
+            You are looking to discuss and open up to me about your personal finances
+            so that I can help guide you through financial decisions.
+            <br />
+            <br />
+            You're passionate about what you do, and you're wanting to understand
+            the financial picture a little bit better. You're looking for someone
+            trustworthy to guide you.
+            <br />
+            <br />
+            As they say, your accountant becomes ever more valuable the longer you
+            are with them, as they come to understand you better, along with your
+            business.
+            <br />
+            <br />
+            I look forward to speaking with you.
+          </p>
+          <Icon
+            name="mdi:format-quote-close"
+            class="absolute -bottom-8 -right-8 text-9xl text-primary"
+          />
         </div>
       </div>
-    </section>
-    <section class="bg-base-200 py-16" id="services">
-      <div class="max-w-7xl mx-auto flex flex-col gap-16 px-4">
-        <h1 class="text-7xl font-bold text-center text-primary max-md:text-5xl">
-          Services
-        </h1>
-        <div class="grid grid-cols-3 max-md:grid-cols-1 max-md:gap-8">
-          {
-            reorderedServices.map((service, index) => (
-              <ServiceCard
-                {...service.data}
-                slug={service.id.replace(".md", "")}
-                index={index}
-                length={services.length}
-              />
-            ))
-          }
-        </div>
+    </SectionBlock>
+    <SectionBlock heading="Services" alternate>
+      <div class="grid grid-cols-3 max-md:grid-cols-1 max-md:gap-8">
+        {
+          reorderedServices.map((service, index) => (
+            <ServiceCard
+              {...service.data}
+              slug={service.id.replace(".md", "")}
+              index={index}
+              length={services.length}
+            />
+          ))
+        }
       </div>
-    </section>
-    <section class="py-16">
-      <div class="max-w-7xl mx-auto flex flex-col gap-16 px-4">
-        <h1 class="text-7xl font-bold text-center text-primary max-md:text-5xl">
-          Testimonials
-        </h1>
-        <div class="grid grid-cols-2 max-md:grid-cols-1 gap-16">
-          {
-            testimonials.map((testimonial) => (
-              <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
-                <h1 class="text-primary font-bold text-xl text-center">
-                  "{testimonial.title}"
-                </h1>
-                <p class="whitespace-pre-line font-light">{testimonial.body}</p>
-                <h2 class="font-bold text-right">
-                  {testimonial.author} - {testimonial.location}
-                </h2>
-              </div>
-            ))
-          }
-        </div>
-        <a href="/testimonials" class="btn btn-accent w-fit mx-auto"
-          >View All My Case Studies</a
-        >
+    </SectionBlock>
+    <SectionBlock heading="Testimonials">
+      <div class="grid grid-cols-2 max-md:grid-cols-1 gap-16">
+        {
+          testimonials.map((testimonial) => (
+            <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
+              <h1 class="text-primary font-bold text-xl text-center">
+                "{testimonial.title}"
+              </h1>
+              <p class="whitespace-pre-line font-light">{testimonial.body}</p>
+              <h2 class="font-bold text-right">
+                {testimonial.author} - {testimonial.location}
+              </h2>
+            </div>
+          ))
+        }
       </div>
-    </section>
-    <section class="py-16 bg-base-200">
-      <div class="max-w-7xl mx-auto flex flex-col gap-16 px-4">
-        <h1 class="text-7xl font-bold text-center text-primary max-md:text-5xl">
-          Frequently Asked Questions
-        </h1>
-        <div class="flex flex-col gap-2 max-w-5xl mx-auto">
-          {
-            faqs.map((faq) => (
-              <div class="collapse collapse-arrow bg-base-100 border border-base-300">
-                <input type="radio" name="my-accordion-2" checked="checked" />
-                <div class="collapse-title font-semibold">{faq.question}</div>
-                <div class="collapse-content text-sm">{faq.answer}</div>
-              </div>
-            ))
-          }
-        </div>
+      <a href="/testimonials" class="btn btn-accent w-fit mx-auto"
+        >View All My Case Studies</a
+      >
+    </SectionBlock>
+    <SectionBlock alternate heading="Frequently Asked Questions">
+      <div class="flex flex-col gap-2 max-w-5xl mx-auto">
+        {
+          faqs.map((faq) => (
+            <div class="collapse collapse-arrow bg-base-100 border border-base-300">
+              <input type="radio" name="my-accordion-2" checked="checked" />
+              <div class="collapse-title font-semibold">{faq.question}</div>
+              <div class="collapse-content text-sm">{faq.answer}</div>
+            </div>
+          ))
+        }
       </div>
-    </section>
+    </SectionBlock>
   </div>
 </Layout>

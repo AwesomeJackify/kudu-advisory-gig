@@ -1,0 +1,12 @@
+---
+const { heading, alternate } = Astro.props;
+---
+
+<section id={heading.toLowerCase()} class={alternate && "bg-base-200"}>
+  <div class="max-w-7xl mx-auto flex flex-col gap-16 px-4 py-16">
+    <h1 class="text-7xl font-bold text-center text-primary max-md:text-5xl">
+      {heading}
+    </h1>
+    <slot />
+  </div>
+</section>

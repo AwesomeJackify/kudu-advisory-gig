@@ -2,12 +2,10 @@
 import "../styles/global.css";
 
 import config from "../config.json";
-const { title } = Astro.props;
+const { title, isAbsolute = false } = Astro.props;
 
 import Nav from "../components/Nav";
 import Footer from "../components/Footer.astro";
-
-const isAbsolute = true;
 ---
 
 <!doctype html>
