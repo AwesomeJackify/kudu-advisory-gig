@@ -1,0 +1,97 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import SectionBlock from "../../components/blocks/SectionBlock.astro";
+import config from "../../config.json";
+
+import { getSpotifyAccessToken } from "../../utils/spotifyToken";
+const accessToken = await getSpotifyAccessToken();
+
+const { pageNo } = Astro.params;
+const page_no_int = pageNo !== undefined ? parseInt(pageNo) : 0;
+
+var total_page_no = 0;
+const episodes: any = [];
+var response: Response | undefined = undefined;
+
+try {
+  response = await fetch(
+    "https://api.spotify.com/v1/shows/" + config.podcastId,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  const data = await response.json();
+  total_page_no = Math.ceil(data.total_episodes / 9);
+
+  console.log(data.total_episodes, total_page_no);
+
+  if (page_no_int !== undefined) {
+    const offset = (page_no_int - 1) * 9;
+    response = await fetch(
+      `https://api.spotify.com/v1/shows/${config.podcastId}/episodes?offset=${offset}&limit=9`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    const data = await response.json();
+    episodes.push(...data.items);
+  }
+} catch (error) {
+  console.log(response);
+  console.log(error);
+}
+---
+
+<Layout title={`Podcast - Page ${pageNo}`}>
+  <SectionBlock heading="Kiwi Business Stories">
+    <h2 class="text-2xl text-center font-bold">Page {pageNo}</h2>
+    <div class="grid grid-cols-3 max-md:grid-cols-1 gap-8 max-md:gap-12">
+      {
+        episodes.map((episode: any) => (
+          <a
+            href={`/episode/${episode.id}`}
+            class="flex flex-col max-md:w-full gap-4 group"
+          >
+            <Image
+              src={episode.images[0].url}
+              alt={episode.name}
+              width={640}
+              height={640}
+              class="w-full object-cover transition-all rounded-2xl md:group-hover:opacity-50"
+            />
+            <h1 class="text-2xl md:group-hover:text-primary transition-colors">
+              {episode.name}
+            </h1>
+          </a>
+        ))
+      }
+    </div>
+    <div class="flex w-full justify-between">
+      {
+        page_no_int > 1 ? (
+          <a href={`/episodes/${page_no_int - 1}`} class="btn">
+            Previous
+          </a>
+        ) : (
+          <div />
+        )
+      }
+
+      {
+        page_no_int < total_page_no ? (
+          <a href={`/episodes/${page_no_int + 1}`} class="btn">
+            Next
+          </a>
+        ) : (
+          <div />
+        )
+      }
+    </div>
+  </SectionBlock>
+</Layout>

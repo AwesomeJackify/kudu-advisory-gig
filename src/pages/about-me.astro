@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from "../layouts/Layout.astro";
 import SectionBlock from "../components/blocks/SectionBlock.astro";
 import { Image } from "astro:assets";
@@ -9,42 +11,39 @@ import Prose from "../components/Prose.astro";
 ---
 
 <Layout title="About Me">
-  <div class="flex flex-col gap-16 max-md:gap-8 overflow-x-clip">
-    <SectionBlock heading="Meet Ryan">
-      <Image src={aboutMeImg} alt="Ryan" class="rounded-lg w-96 mx-auto" />
-      <div class="mx-auto">
-        <Prose>
-          <p>
-            Kudu Advisory was founded by Ryan Vergottini, the the sole Director
-            of Kudu Advisory. Ryan is a first-generation Kiwi. His family hails
-            from South Africa, and they moved the family over back when he was 6
-            years old . The firm is based in Auckland, although a lot of the
-            firms work is remote, servicing clients all over NZ. Ryan has
-            experience working with clients of all sizes from small sole-traders
-            up to companies with revenue of tens of millions of dollars.
-          </p>
-          <p>
-            Ryan was lucky enough to have an upbringing centred around business
-            ownership. His parents have always been self-employed, so it was
-            natural that he followed suit. As a high school student, he managed
-            to build a modest lawn-mowing and landscaping business and continued
-            running the company throughout his university studies.
-          </p>
+  <SectionBlock heading="Meet Ryan">
+    <Image src={aboutMeImg} alt="Ryan" class="rounded-lg w-96 mx-auto" />
+    <div class="mx-auto">
+      <Prose>
+        <p>
+          Kudu Advisory was founded by Ryan Vergottini, the the sole Director of
+          Kudu Advisory. Ryan is a first-generation Kiwi. His family hails from
+          South Africa, and they moved the family over back when he was 6 years
+          old . The firm is based in Auckland, although a lot of the firms work
+          is remote, servicing clients all over NZ. Ryan has experience working
+          with clients of all sizes from small sole-traders up to companies with
+          revenue of tens of millions of dollars.
+        </p>
+        <p>
+          Ryan was lucky enough to have an upbringing centred around business
+          ownership. His parents have always been self-employed, so it was
+          natural that he followed suit. As a high school student, he managed to
+          build a modest lawn-mowing and landscaping business and continued
+          running the company throughout his university studies.
+        </p>
 
-          <p>
-            Before starting Kudu Advisory, Ryan was an accountant at a boutique
-            Auckland-based accounting firm, where he carried out his training
-            and qualified as a Chartered Accountant. It's also where he
-            developed a passion for working alongside the small business owner.
-            As a CA specialising in SME's, you are in a fortunate position
-            whereby you have the opportunity (an obligation, rather) to know
-            your clients and their business, probably to the point where you
-            know the most, second to the directors. This is something very
-            unique to the SME business market, and not something you find in the
-            corporate world.
-          </p>
-        </Prose>
-      </div>
-    </SectionBlock>
-  </div>
+        <p>
+          Before starting Kudu Advisory, Ryan was an accountant at a boutique
+          Auckland-based accounting firm, where he carried out his training and
+          qualified as a Chartered Accountant. It's also where he developed a
+          passion for working alongside the small business owner. As a CA
+          specialising in SME's, you are in a fortunate position whereby you
+          have the opportunity (an obligation, rather) to know your clients and
+          their business, probably to the point where you know the most, second
+          to the directors. This is something very unique to the SME business
+          market, and not something you find in the corporate world.
+        </p>
+      </Prose>
+    </div>
+  </SectionBlock>
 </Layout>

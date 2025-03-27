@@ -1,0 +1,100 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import SectionBlock from "../../components/blocks/SectionBlock.astro";
+
+import { getSpotifyAccessToken } from "../../utils/spotifyToken";
+const accessToken = await getSpotifyAccessToken();
+
+const { episode } = Astro.params;
+
+var response: Response | undefined = undefined;
+var currentEpisode: any = undefined;
+
+try {
+  response = await fetch(
+    `https://api.spotify.com/v1/episodes/${episode}?market=nz`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  const data = await response.json();
+  currentEpisode = data;
+} catch (error) {
+  console.log(response);
+  console.log(error);
+}
+
+const streamingPlatforms = [
+  {
+    label: "spotify",
+    icon: "mdi:spotify",
+    action: "https://open.spotify.com/show/60Ub7lgKHJYePGSYhUUxIR",
+  },
+  {
+    label: "soundcloud",
+    icon: "mdi:soundcloud",
+    action: "https://soundcloud.com/the_pot_cast",
+  },
+  {
+    label: "youtube",
+    icon: "mdi:youtube",
+    action: "https://www.youtube.com/channel/UCg10NUWR56nhkqREqdcSxQw",
+  },
+  {
+    label: "apple",
+    icon: "ph:apple-podcasts-logo",
+    action: "https://podcasts.apple.com/us/podcast/the-pot-cast/id1150984579",
+  },
+];
+---
+
+<Layout title={`${currentEpisode.name}`}>
+  <SectionBlock heading={`${currentEpisode.name}`}>
+    {
+      currentEpisode ? (
+        <ul class="max-w-screen-xl mx-auto flex flex-col gap-16 max-md:gap-8 items-center">
+          <iframe
+            title="spotify-embed"
+            style="border-radius:12px"
+            src={`https://open.spotify.com/embed/episode/${currentEpisode.id}?utm_source=generator`}
+            class="w-full"
+            height="352"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          />
+          <div class="flex flex-col items-center gap-4">
+            <h1 class="text-2xl max-md:text-xl text-center">
+              Listen to it on our streaming platforms
+            </h1>
+            <ul class="menu grid grid-cols-4 max-md:grid-cols-2 gap-12">
+              {streamingPlatforms.map((social: any) => (
+                <li>
+                  <a
+                    href={social.action}
+                    target="_blank"
+                    aria-label={social.label}
+                  >
+                    <Icon name={social.icon} class="text-4xl" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="flex flex-col gap-4 max-md:w-full">
+            <h1 class="text-4xl text-center">Description</h1>
+            <p class="text-2xl font-light leading-loose max-md:text-lg">
+              {currentEpisode.description}
+            </p>
+          </div>
+        </ul>
+      ) : (
+        <h1>Error fetching episode</h1>
+      )
+    }
+  </SectionBlock>
+</Layout>

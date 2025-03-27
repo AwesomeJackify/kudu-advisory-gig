@@ -2,6 +2,7 @@
   "businessName": "Kudu Advisory",
   "bookingLink": "https://calendly.com/kuduadvisory/30min",
   "description": "Kudu Advisory is a bespoke Chartered Accounting firm owned and operated by Ryan Vergottini (CA). We provide tailored accounting services to unique and beautiful small businesses here in New Zealand.",
+  "podcastId": "5wu4Xg9oPE01Zp5qsQAPWW",
   "pages": [
     {
       "name": "Home",
@@ -21,7 +22,7 @@
     },
     {
       "name": "Podcast",
-      "url": "/podcast"
+      "url": "/podcast/1"
     }
   ],
   "address": "123 Fake St, Auckland",

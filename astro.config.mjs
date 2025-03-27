@@ -6,14 +6,20 @@ import react from "@astrojs/react";
 
 import icon from "astro-icon";
 
+import netlify from "@astrojs/netlify";
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
   redirects: {
     "/services": "/#services",
-    "/blog": "https://example.com/blog",
+    "/podcast": "/podcast/1",
   },
+
   integrations: [react(), icon()],
+  adapter: netlify(),
+  output: "server",
 });
