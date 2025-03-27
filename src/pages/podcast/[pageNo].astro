@@ -27,8 +27,6 @@ try {
   const data = await response.json();
   total_page_no = Math.ceil(data.total_episodes / 9);
 
-  console.log(data.total_episodes, total_page_no);
-
   if (page_no_int !== undefined) {
     const offset = (page_no_int - 1) * 9;
     response = await fetch(

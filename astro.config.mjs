@@ -20,6 +20,8 @@ export default defineConfig({
   },
 
   integrations: [react(), icon()],
-  adapter: netlify(),
+  adapter: netlify({
+    imageCDN: false,
+  }),
   output: "server",
 });
