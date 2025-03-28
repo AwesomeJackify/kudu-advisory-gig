@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 import SectionBlock from "../../components/blocks/SectionBlock.astro";
+import config from "../../config.json";
 
 import { getSpotifyAccessToken } from "../../utils/spotifyToken";
 const accessToken = await getSpotifyAccessToken();
@@ -27,29 +28,6 @@ try {
   console.log(response);
   console.log(error);
 }
-
-const streamingPlatforms = [
-  {
-    label: "spotify",
-    icon: "mdi:spotify",
-    action: "https://open.spotify.com/show/60Ub7lgKHJYePGSYhUUxIR",
-  },
-  {
-    label: "soundcloud",
-    icon: "mdi:soundcloud",
-    action: "https://soundcloud.com/the_pot_cast",
-  },
-  {
-    label: "youtube",
-    icon: "mdi:youtube",
-    action: "https://www.youtube.com/channel/UCg10NUWR56nhkqREqdcSxQw",
-  },
-  {
-    label: "apple",
-    icon: "ph:apple-podcasts-logo",
-    action: "https://podcasts.apple.com/us/podcast/the-pot-cast/id1150984579",
-  },
-];
 ---
 
 <Layout title={`${currentEpisode.name}`}>
@@ -71,15 +49,19 @@ const streamingPlatforms = [
             <h1 class="text-2xl max-md:text-xl text-center">
               Listen to it on our streaming platforms
             </h1>
-            <ul class="menu grid grid-cols-4 max-md:grid-cols-2 gap-12">
-              {streamingPlatforms.map((social: any) => (
+            <ul class="menu grid grid-cols-2 max-md:grid-cols-2 gap-12">
+              {config.streamingPlatforms.map((social: any) => (
                 <li>
                   <a
                     href={social.action}
                     target="_blank"
                     aria-label={social.label}
+                    class="group"
                   >
-                    <Icon name={social.icon} class="text-4xl" />
+                    <Icon
+                      name={social.icon}
+                      class="text-4xl group-hover:text-primary transition"
+                    />
                   </a>
                 </li>
               ))}

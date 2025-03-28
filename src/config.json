@@ -53,5 +53,17 @@
       "url": "https://www.tiktok.com/@elevatestudios_nz?is_from_webapp=1&sender_device=pc"
     }
   ],
+  "streamingPlatforms": [
+    {
+      "label": "spotify",
+      "icon": "mdi:spotify",
+      "action": "https://open.spotify.com/show/5wu4Xg9oPE01Zp5qsQAPWW?si=b0658bfae24a499c"
+    },
+    {
+      "label": "apple",
+      "icon": "ph:apple-podcasts-logo",
+      "action": "https://podcasts.apple.com/gb/podcast/kiwi-business-stories/id1774142267"
+    }
+  ],
   "reviews": []
 }
