@@ -20,12 +20,15 @@
     "@tailwindcss/vite": "^4.0.13",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "@wordpress/api-fetch": "^7.21.0",
     "astro": "^5.4.3",
     "astro-icon": "^1.1.5",
     "gsap": "^3.12.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.13"
+    "tailwindcss": "^4.0.13",
+    "wordpress": "^1.4.2",
+    "wp-types": "^4.67.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

@@ -9,6 +9,10 @@ import { getCollection } from "astro:content";
 import ServiceCard from "../components/ServiceCard.astro";
 import ToggleMuteButton from "../components/ToggleMuteButton.tsx";
 import SectionBlock from "../components/blocks/SectionBlock.astro";
+import { quality } from "@cloudinary/url-gen/actions/delivery";
+import { trim } from "@cloudinary/url-gen/actions/videoEdit";
+import Prose from "../components/Prose.astro";
+import type { WP_Post } from "wp-types";
 
 import profileImg1 from "../assets/images/profile1.jpg";
 import profileImg2 from "../assets/images/profile2.jpg";
@@ -27,7 +31,10 @@ const cld = new Cloudinary({
 });
 
 const introVideo = cld.video("kudu-advisory/kudu-advisory-hero");
-const introVideoURL = introVideo.toURL();
+const introVideoURL = introVideo
+  .videoEdit(trim().duration("15.0"))
+  .delivery(quality(80))
+  .toURL();
 
 const services = await getCollection("services");
 
@@ -38,6 +45,12 @@ if (popularIndex !== -1) {
   const middleIndex = Math.floor(reorderedServices.length / 2);
   reorderedServices.splice(middleIndex, 0, mostPopular); // insert at middle
 }
+
+const res = await fetch("http://kudu-advisory.local/wp-json/wp/v2/posts");
+if (!res.ok) {
+  throw new Error(`Failed to fetch posts: ${res.statusText}`);
+}
+const posts = await res.json();
 ---
 
 <Layout isAbsolute={true} title={config.businessName}>
@@ -177,6 +190,32 @@ if (popularIndex !== -1) {
             index={index}
             length={services.length}
           />
+        ))
+      }
+    </div>
+  </SectionBlock>
+  <SectionBlock heading="Articles">
+    <div class="grid grid-cols-3 max-md:grid-cols-1">
+      {
+        posts.map((post: any) => (
+          <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
+            <h1
+              set:html={post.title.rendered}
+              class="text-primary font-bold text-xl text-center"
+            />
+            <Prose>
+              <p
+                set:html={post.excerpt.rendered}
+                class="whitespace-pre-line font-light"
+              />
+            </Prose>
+            <a
+              href={`/articles/${post.slug}`}
+              class="btn btn-accent w-fit mx-auto"
+            >
+              Read More
+            </a>
+          </div>
         ))
       }
     </div>
