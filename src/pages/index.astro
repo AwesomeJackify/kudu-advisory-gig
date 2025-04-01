@@ -46,7 +46,7 @@ if (popularIndex !== -1) {
   reorderedServices.splice(middleIndex, 0, mostPopular); // insert at middle
 }
 
-const res = await fetch("http://kudu-advisory.local/wp-json/wp/v2/posts");
+const res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/posts`);
 if (!res.ok) {
   throw new Error(`Failed to fetch posts: ${res.statusText}`);
 }

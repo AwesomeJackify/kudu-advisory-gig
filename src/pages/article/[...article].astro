@@ -5,10 +5,11 @@ import { Icon } from "astro-icon/components";
 import { getEntry, render } from "astro:content";
 import Prose from "../../components/Prose.astro";
 import SectionBlock from "../../components/blocks/SectionBlock.astro";
+import config from "../../config.json";
 
 const { article } = Astro.params;
 
-const res = await fetch("http://kudu-advisory.local/wp-json/wp/v2/posts");
+const res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/posts`);
 if (!res.ok) {
   throw new Error(`Failed to fetch posts: ${res.statusText}`);
 }
@@ -18,7 +19,7 @@ const articleData = posts.find(
 );
 
 const authorRes = await fetch(
-  `http://kudu-advisory.local/wp-json/wp/v2/users/${articleData.author}`
+  `${config.wpRootURL}/wp-json/wp/v2/users/${articleData.author}`
 );
 const authorData = await authorRes.json();
 
