@@ -13,16 +13,30 @@ if (!res.ok) {
   throw new Error(`Failed to fetch posts: ${res.statusText}`);
 }
 const posts = await res.json();
-const articleData = posts.find((post: any) => post.slug === article);
+const articleData = posts.find(
+  (post: any) => post.slug === article && post.status === "publish"
+);
 
 const authorRes = await fetch(
   `http://kudu-advisory.local/wp-json/wp/v2/users/${articleData.author}`
 );
 const authorData = await authorRes.json();
-console.log(authorData);
+
+const truncatedTitle =
+  articleData.title.rendered.length > 52
+    ? articleData.title.rendered.slice(0, 52) + "..."
+    : articleData.title.rendered;
 ---
 
 <Layout title={articleData.title.rendered}>
+  <div class="breadcrumbs text-sm ml-8">
+    <ul>
+      <li><a href="/articles">Articles</a></li>
+      <li>
+        {truncatedTitle}
+      </li>
+    </ul>
+  </div>
   <article class="mx-auto max-w-3xl px-4 py-16">
     <header class="mb-12 space-y-4 text-center">
       <h1
