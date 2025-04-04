@@ -13,12 +13,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-
-  redirects: {
-    "/services": "/#services",
-    "/podcast": "/podcast/1",
-  },
-
   integrations: [react(), icon()],
   adapter: netlify({
     imageCDN: false,

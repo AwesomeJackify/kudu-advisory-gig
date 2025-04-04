@@ -7,8 +7,7 @@ import config from "../../config.json";
 import { getSpotifyAccessToken } from "../../utils/spotifyToken";
 const accessToken = await getSpotifyAccessToken();
 
-const { pageNo } = Astro.params;
-const page_no_int = pageNo !== undefined ? parseInt(pageNo) : 0;
+const pageNo = parseInt(Astro.params.pageNo || "1", 10);
 
 var total_page_no = 0;
 const episodes: any = [];
@@ -27,8 +26,8 @@ try {
   const data = await response.json();
   total_page_no = Math.ceil(data.total_episodes / 9);
 
-  if (page_no_int !== undefined) {
-    const offset = (page_no_int - 1) * 9;
+  if (pageNo !== undefined) {
+    const offset = (pageNo - 1) * 9;
     response = await fetch(
       `https://api.spotify.com/v1/shows/${config.podcastId}/episodes?offset=${offset}&limit=9`,
       {
@@ -73,8 +72,8 @@ try {
     </div>
     <div class="flex w-full justify-between">
       {
-        page_no_int > 1 ? (
-          <a href={`/episodes/${page_no_int - 1}`} class="btn">
+        pageNo > 1 ? (
+          <a href={`/episodes/${pageNo - 1}`} class="btn">
             Previous
           </a>
         ) : (
@@ -83,8 +82,8 @@ try {
       }
 
       {
-        page_no_int < total_page_no ? (
-          <a href={`/episodes/${page_no_int + 1}`} class="btn">
+        pageNo < total_page_no ? (
+          <a href={`/episodes/${pageNo + 1}`} class="btn">
             Next
           </a>
         ) : (

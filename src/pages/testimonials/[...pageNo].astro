@@ -1,0 +1,66 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import SectionBlock from "../../components/blocks/SectionBlock.astro";
+
+import testimonials from "../../data/testimonials";
+import type { Testimonial } from "../../types/testimonial";
+
+const testimonialPerPage = 4;
+
+const pageNo = parseInt(Astro.params.pageNo || "1", 10);
+const totalPageNo = Math.ceil(testimonials.length / testimonialPerPage);
+const startIndex = (pageNo - 1) * testimonialPerPage;
+const endIndex = startIndex + testimonialPerPage;
+
+if (
+  pageNo < 1 ||
+  pageNo > Math.ceil(testimonials.length / testimonialPerPage)
+) {
+  throw new Error("Page not found");
+}
+---
+
+<Layout title={`Podcast - Page ${pageNo}`}>
+  <SectionBlock heading="Testimonials">
+    <h2 class="text-2xl text-center font-bold">Page {pageNo}</h2>
+    <div class="grid grid-cols-2 max-md:grid-cols-1 gap-16">
+      {
+        testimonials
+          .slice(startIndex, endIndex)
+          .map((testimonial: Testimonial) => (
+            <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
+              <h1 class="text-primary font-bold text-xl text-center">
+                "{testimonial.title}"
+              </h1>
+              <p class="whitespace-pre-line font-light">{testimonial.body}</p>
+              <h2 class="font-bold text-right">
+                {testimonial.author} - {testimonial.location}
+              </h2>
+            </div>
+          ))
+      }
+    </div>
+    <div class="flex w-full justify-between">
+      {
+        pageNo > 1 ? (
+          <a href={`/episodes/${pageNo - 1}`} class="btn">
+            Previous
+          </a>
+        ) : (
+          <div />
+        )
+      }
+
+      {
+        pageNo < totalPageNo ? (
+          <a href={`/episodes/${pageNo + 1}`} class="btn">
+            Next
+          </a>
+        ) : (
+          <div />
+        )
+      }
+    </div>
+  </SectionBlock>
+</Layout>
