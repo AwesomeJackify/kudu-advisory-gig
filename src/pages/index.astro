@@ -1,5 +1,5 @@
 ---
-export const prerender = false;
+export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
@@ -271,6 +271,7 @@ const turnoverBrackets = [
   </SectionBlock>
   <SectionBlock heading="Contact Me">
     <form
+      method="post"
       name="contact"
       data-netlify="true"
       class="w-full flex flex-col gap-4 max-md:col-span-1"
