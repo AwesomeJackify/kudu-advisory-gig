@@ -288,6 +288,7 @@ const turnoverBrackets = [
                 type="text"
                 class="grow text-stone-700"
                 name="name"
+                required
                 placeholder="Enter your name..."
               />
             </label>
@@ -300,6 +301,7 @@ const turnoverBrackets = [
                 type="text"
                 class="grow text-stone-700"
                 name="email"
+                required
                 placeholder="Enter your email..."
               />
             </label>
@@ -310,6 +312,7 @@ const turnoverBrackets = [
               <Icon name="mdi:phone" class="text-3xl" />
               <input
                 type="text"
+                required
                 class="grow text-stone-700"
                 name="phone"
                 placeholder="Enter your phone number..."
@@ -322,6 +325,7 @@ const turnoverBrackets = [
               <Icon name="mdi:factory" class="text-3xl" />
               <input
                 type="text"
+                required
                 class="grow text-stone-700"
                 name="industry"
                 placeholder="Software Engineering"
@@ -339,6 +343,7 @@ const turnoverBrackets = [
                     <label class="label cursor-pointer gap-2 pl-0">
                       <input
                         type="radio"
+                        required
                         name="turnover bracket"
                         value={turnoverBracket.name}
                         class="radio radio-secondary"
@@ -355,6 +360,7 @@ const turnoverBrackets = [
           <label class="text-xl">Message</label>
           <textarea
             name="message"
+            required
             class="textarea text-stone-700 textarea-bordered h-full w-full resize-none"
             placeholder="I want to know more about..."></textarea>
         </div>
