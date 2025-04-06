@@ -3,10 +3,22 @@ import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import SectionBlock from "../../components/blocks/SectionBlock.astro";
 
-import testimonials from "../../data/testimonials";
 import type { Testimonial } from "../../types/testimonial";
+import config from "../../config.json";
 
 const testimonialPerPage = 4;
+
+let res: Response;
+let testimonials: Testimonial[] = [];
+res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/testimonial`);
+const data = await res.json();
+
+testimonials = data.map((item: any) => ({
+  title: item.title,
+  body: item.content.rendered,
+  author: item.acf.author,
+  location: item.acf.location,
+}));
 
 const pageNo = parseInt(Astro.params.pageNo || "1", 10);
 const totalPageNo = Math.ceil(testimonials.length / testimonialPerPage);
@@ -30,10 +42,14 @@ if (
           .slice(startIndex, endIndex)
           .map((testimonial: Testimonial) => (
             <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
-              <h1 class="text-primary font-bold text-xl text-center">
-                "{testimonial.title}"
-              </h1>
-              <p class="whitespace-pre-line font-light">{testimonial.body}</p>
+              <h1
+                class="text-primary font-bold text-xl text-center"
+                set:html={testimonial.title}
+              />
+              <p
+                class="whitespace-pre-line font-light"
+                set:html={testimonial.body}
+              />
               <h2 class="font-bold text-right">
                 {testimonial.author} - {testimonial.location}
               </h2>

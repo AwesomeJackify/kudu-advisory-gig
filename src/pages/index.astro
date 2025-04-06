@@ -20,7 +20,6 @@ import profileImg3 from "../assets/images/profile3.jpg";
 import signatureImg from "../assets/images/signature.png";
 
 import config from "../config.json";
-import testimonials from "../data/testimonials";
 import faqs from "../data/faqs";
 import type { Testimonial } from "../types/testimonial";
 
@@ -49,13 +48,24 @@ if (popularIndex !== -1) {
 let posts: any[] = [];
 let res;
 
-res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/posts?categories=articles`)
+res = await fetch(
+  `${config.wpRootURL}/wp-json/wp/v2/posts?categories=3&status=publish`
+)
   .then(async (res) => {
     posts = await res.json();
   })
   .catch((err) => {});
 
-const publishedPosts = posts.filter((post: any) => post.status === "publish");
+let testimonials: Testimonial[] = [];
+res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/testimonial`);
+const data = await res.json();
+
+testimonials = data.map((item: any) => ({
+  title: item.title.rendered,
+  body: item.content.rendered,
+  author: item.acf.author,
+  location: item.acf.location,
+}));
 
 const turnoverBrackets = [
   { name: "$0 - $50,000" },
@@ -207,10 +217,10 @@ const turnoverBrackets = [
     </div>
   </SectionBlock>
   {
-    publishedPosts.length > 0 ? (
+    posts.length > 0 ? (
       <SectionBlock heading="Articles">
         <div class="grid grid-cols-3 max-md:grid-cols-1 gap-16 max-md:gap-8">
-          {publishedPosts.map((post: any, index: number) => (
+          {posts.map((post: any, index: number) => (
             <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
               <h1
                 set:html={post.title.rendered}
@@ -256,7 +266,10 @@ const turnoverBrackets = [
             <h1 class="text-primary font-bold text-xl text-center">
               "{testimonial.title}"
             </h1>
-            <p class="whitespace-pre-line font-light">{testimonial.body}</p>
+            <p
+              class="whitespace-pre-wrap font-light"
+              set:html={testimonial.body}
+            />
             <h2 class="font-bold text-right">
               {testimonial.author} - {testimonial.location}
             </h2>
