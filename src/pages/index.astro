@@ -1,5 +1,5 @@
 ---
-export const prerender = true;
+export const prerender = false;
 
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
@@ -12,7 +12,6 @@ import SectionBlock from "../components/blocks/SectionBlock.astro";
 import { quality } from "@cloudinary/url-gen/actions/delivery";
 import { trim } from "@cloudinary/url-gen/actions/videoEdit";
 import Prose from "../components/Prose.astro";
-import type { WP_Post } from "wp-types";
 
 import profileImg1 from "../assets/images/profile1.jpg";
 import profileImg2 from "../assets/images/profile2.jpg";
@@ -47,11 +46,15 @@ if (popularIndex !== -1) {
   reorderedServices.splice(middleIndex, 0, mostPopular); // insert at middle
 }
 
-const res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/posts`);
-if (!res.ok) {
-  throw new Error(`Failed to fetch posts: ${res.statusText}`);
-}
-const posts = await res.json();
+let posts: any[] = [];
+let res;
+
+res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/posts?categories=articles`)
+  .then(async (res) => {
+    posts = await res.json();
+  })
+  .catch((err) => {});
+
 const publishedPosts = posts.filter((post: any) => post.status === "publish");
 
 const turnoverBrackets = [
@@ -203,35 +206,48 @@ const turnoverBrackets = [
       }
     </div>
   </SectionBlock>
-  <SectionBlock heading="Articles">
-    <div class="grid grid-cols-3 max-md:grid-cols-1 gap-16 max-md:gap-8">
-      {
-        publishedPosts.map((post: any) => (
-          <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
-            <h1
-              set:html={post.title.rendered}
-              class="text-primary font-bold text-xl text-center"
-            />
-            <Prose>
-              <p
-                set:html={post.excerpt.rendered}
-                class="whitespace-pre-line font-light"
+  {
+    publishedPosts.length > 0 ? (
+      <SectionBlock heading="Articles">
+        <div class="grid grid-cols-3 max-md:grid-cols-1 gap-16 max-md:gap-8">
+          {publishedPosts.map((post: any, index: number) => (
+            <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
+              <h1
+                set:html={post.title.rendered}
+                class="text-primary font-bold text-xl text-center"
               />
-            </Prose>
-            <a
-              href={`/article/${post.slug}`}
-              class="btn btn-accent w-fit mx-auto"
-            >
-              Read More
-            </a>
-          </div>
-        ))
-      }
-    </div>
-    <a class="btn btn-accent w-fit mx-auto" href="/articles/1"
-      >See All Articles</a
-    >
-  </SectionBlock>
+              <Prose>
+                <p
+                  set:html={post.excerpt.rendered}
+                  class="whitespace-pre-line font-light"
+                />
+              </Prose>
+              <a
+                href={`/article/${post.slug}`}
+                class="btn btn-accent w-fit mx-auto"
+                aria-label={`Read more about ${post.title.rendered}`}
+              >
+                Read More
+              </a>
+            </div>
+          ))}
+        </div>
+        <a
+          class="btn btn-accent w-fit mx-auto"
+          href="/articles/1"
+          aria-label="See all articles"
+        >
+          See All Articles
+        </a>
+      </SectionBlock>
+    ) : (
+      <SectionBlock heading="Articles">
+        <p class="text-center text-stone-500">
+          No articles available at the moment.
+        </p>
+      </SectionBlock>
+    )
+  }
   <SectionBlock heading="Testimonials">
     <div class="grid grid-cols-2 max-md:grid-cols-1 gap-16">
       {
