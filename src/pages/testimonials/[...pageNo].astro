@@ -6,29 +6,28 @@ import SectionBlock from "../../components/blocks/SectionBlock.astro";
 import type { Testimonial } from "../../types/testimonial";
 import config from "../../config.json";
 
-const testimonialPerPage = 4;
+const testimonialsPerPage = 2;
+
+const pageNo = parseInt(Astro.params.pageNo || "1", 10);
 
 let res: Response;
 let testimonials: Testimonial[] = [];
-res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/testimonial`);
+res = await fetch(
+  `${config.wpRootURL}/wp-json/wp/v2/testimonial?per_page=${testimonialsPerPage}&page=${pageNo}`
+);
 const data = await res.json();
 
 testimonials = data.map((item: any) => ({
-  title: item.title,
+  title: item.title.rendered,
   body: item.content.rendered,
   author: item.acf.author,
   location: item.acf.location,
 }));
 
-const pageNo = parseInt(Astro.params.pageNo || "1", 10);
-const totalPageNo = Math.ceil(testimonials.length / testimonialPerPage);
-const startIndex = (pageNo - 1) * testimonialPerPage;
-const endIndex = startIndex + testimonialPerPage;
+const totalItems = parseInt(res.headers.get("X-WP-Total") || "0", 10);
+const totalPageNo = Math.ceil(totalItems / testimonialsPerPage);
 
-if (
-  pageNo < 1 ||
-  pageNo > Math.ceil(testimonials.length / testimonialPerPage)
-) {
+if (pageNo < 1 || pageNo > totalPageNo) {
   throw new Error("Page not found");
 }
 ---
@@ -38,29 +37,27 @@ if (
     <h2 class="text-2xl text-center font-bold">Page {pageNo}</h2>
     <div class="grid grid-cols-2 max-md:grid-cols-1 gap-16">
       {
-        testimonials
-          .slice(startIndex, endIndex)
-          .map((testimonial: Testimonial) => (
-            <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
-              <h1
-                class="text-primary font-bold text-xl text-center"
-                set:html={testimonial.title}
-              />
-              <p
-                class="whitespace-pre-line font-light"
-                set:html={testimonial.body}
-              />
-              <h2 class="font-bold text-right">
-                {testimonial.author} - {testimonial.location}
-              </h2>
-            </div>
-          ))
+        testimonials.map((testimonial: Testimonial) => (
+          <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
+            <h1
+              class="text-primary font-bold text-xl text-center"
+              set:html={testimonial.title}
+            />
+            <p
+              class="whitespace-pre-line font-light"
+              set:html={testimonial.body}
+            />
+            <h2 class="font-bold text-right">
+              {testimonial.author} - {testimonial.location}
+            </h2>
+          </div>
+        ))
       }
     </div>
     <div class="flex w-full justify-between">
       {
         pageNo > 1 ? (
-          <a href={`/episodes/${pageNo - 1}`} class="btn">
+          <a href={`/testimonials/${pageNo - 1}`} class="btn">
             Previous
           </a>
         ) : (
@@ -70,7 +67,7 @@ if (
 
       {
         pageNo < totalPageNo ? (
-          <a href={`/episodes/${pageNo + 1}`} class="btn">
+          <a href={`/testimonials/${pageNo + 1}`} class="btn">
             Next
           </a>
         ) : (

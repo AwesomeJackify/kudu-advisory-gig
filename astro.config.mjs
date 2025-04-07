@@ -14,6 +14,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   integrations: [react(), icon()],
+  redirects: {
+    "/services": "/#services",
+  },
   adapter: netlify({
     imageCDN: false,
   }),

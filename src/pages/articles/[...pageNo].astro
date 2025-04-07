@@ -15,7 +15,7 @@ if (!pageNo) {
 const perPageNo = 9;
 
 const res = await fetch(
-  `${config.wpRootURL}/wp-json/wp/v2/posts?per_page=${perPageNo}&page=${pageNo}`
+  `${config.wpRootURL}/wp-json/wp/v2/posts?categories=3&status=publish&per_page=${perPageNo}&page=${pageNo}`
 );
 if (!res.ok) {
   throw new Error(`Failed to fetch posts: ${res.statusText}`);

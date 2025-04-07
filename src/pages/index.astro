@@ -57,8 +57,9 @@ res = await fetch(
   .catch((err) => {});
 
 let testimonials: Testimonial[] = [];
-res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/testimonial`);
+res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/testimonial?per_page=2`);
 const data = await res.json();
+console.log(data);
 
 testimonials = data.map((item: any) => ({
   title: item.title.rendered,
@@ -263,9 +264,10 @@ const turnoverBrackets = [
       {
         testimonials.map((testimonial: Testimonial) => (
           <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
-            <h1 class="text-primary font-bold text-xl text-center">
-              "{testimonial.title}"
-            </h1>
+            <h1
+              class="text-primary font-bold text-xl text-center"
+              set:html={testimonial.title}
+            />
             <p
               class="whitespace-pre-wrap font-light"
               set:html={testimonial.body}
@@ -277,9 +279,9 @@ const turnoverBrackets = [
         ))
       }
     </div>
-    <a href="/testimonials" class="btn btn-accent w-fit mx-auto"
-      >View All My Case Studies</a
-    >
+    <a href="/testimonials" class="btn btn-accent w-fit mx-auto">
+      View All My Case Studies
+    </a>
   </SectionBlock>
   <SectionBlock alternate heading="Frequently Asked Questions">
     <div class="flex flex-col gap-2 max-w-5xl mx-auto">
