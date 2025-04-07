@@ -15,6 +15,9 @@ let testimonials: Testimonial[] = [];
 res = await fetch(
   `${config.wpRootURL}/wp-json/wp/v2/testimonial?per_page=${testimonialsPerPage}&page=${pageNo}`
 );
+if (!res.ok) {
+  throw new Error(`Failed to fetch testimonials: ${res.statusText}`);
+}
 const data = await res.json();
 
 testimonials = data.map((item: any) => ({

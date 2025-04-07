@@ -57,15 +57,18 @@ res = await fetch(
   .catch((err) => {});
 
 let testimonials: Testimonial[] = [];
-res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/testimonial?per_page=2`);
-const data = await res.json();
 
-testimonials = data.map((item: any) => ({
-  title: item.title.rendered,
-  body: item.content.rendered,
-  author: item.acf.author,
-  location: item.acf.location,
-}));
+try {
+  res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/testimonial?per_page=2`);
+  const data = await res.json();
+
+  testimonials = data.map((item: any) => ({
+    title: item.title.rendered,
+    body: item.content.rendered,
+    author: item.acf.author,
+    location: item.acf.location,
+  }));
+} catch (err) {}
 
 const turnoverBrackets = [
   { name: "$0 - $50,000" },
