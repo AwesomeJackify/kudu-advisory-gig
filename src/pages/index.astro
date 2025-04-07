@@ -59,7 +59,6 @@ res = await fetch(
 let testimonials: Testimonial[] = [];
 res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/testimonial?per_page=2`);
 const data = await res.json();
-console.log(data);
 
 testimonials = data.map((item: any) => ({
   title: item.title.rendered,

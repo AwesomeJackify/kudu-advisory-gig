@@ -24,10 +24,7 @@ try {
 
   const data = await response.json();
   currentEpisode = data;
-} catch (error) {
-  console.log(response);
-  console.log(error);
-}
+} catch (error) {}
 ---
 
 <Layout title={`${currentEpisode.name}`}>

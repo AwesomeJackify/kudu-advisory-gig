@@ -39,10 +39,7 @@ try {
     const data = await response.json();
     episodes.push(...data.items);
   }
-} catch (error) {
-  console.log(response);
-  console.log(error);
-}
+} catch (error) {}
 ---
 
 <Layout title={`Podcast - Page ${pageNo}`}>
