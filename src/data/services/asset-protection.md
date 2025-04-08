@@ -2,9 +2,9 @@
 title: "Asset Protection"
 description: "Are you concerned that your company has substantial assets, and these may be exposed to the inevitable trials and tribulations of business?"
 features:
-  - "Quarterly management report"
-  - "Forecast for the next three months"
-  - "Review of your tax position"
+  - "Protect your business assets"
+  - "Reduce your anxiety"
+  - "Strengthen your market presence"
 ---
 
 # Asset Protection: The best way to ensure your business assets are protected
