@@ -1,0 +1,26 @@
+---
+import SectionBlock from "../components/blocks/SectionBlock.astro";
+import config from "../config.json";
+import faqs from "../data/faqs";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title={config.businessName}>
+  <SectionBlock heading="Frequently Asked Questions">
+    <div class="flex flex-col gap-2 max-w-5xl mx-auto">
+      {
+        faqs.map((faq, index) => (
+          <div class="collapse collapse-arrow bg-base-100 border border-base-300">
+            <input
+              type="radio"
+              name="my-accordion-2"
+              checked={index == 0 && "checked"}
+            />
+            <div class="collapse-title font-semibold">{faq.question}</div>
+            <div class="collapse-content text-sm">{faq.answer}</div>
+          </div>
+        ))
+      }
+    </div>
+  </SectionBlock>
+</Layout>

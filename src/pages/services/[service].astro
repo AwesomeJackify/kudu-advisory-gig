@@ -28,7 +28,7 @@ const { Content } = await render(serviceData);
 ---
 
 <Layout title={serviceData.data.title}>
-  <SectionBlock heading="Frequently Asked Questions">
+  <SectionBlock heading={serviceData.data.title}>
     <div class="mx-auto">
       <Prose>
         <Content />

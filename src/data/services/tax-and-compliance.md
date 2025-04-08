@@ -8,7 +8,7 @@ features:
 isMostPopular: true
 ---
 
-# Accounting & Tax Compliance Package
+# Tax & Compliance Package – The Basics
 
 The first step to developing your financial systems, is high-quality compliance. You have to get the bedrock set first before you can build from there. There is no getting around this!
 

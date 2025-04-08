@@ -55,16 +55,38 @@ const Nav = ({ isAbsolute }: Props) => {
       >
         <div className={`navbar-start ${isAbsolute ? "" : ""}`}>
           <ul className="menu menu-horizontal px-1">
-            {config.pages.slice(1).map((page, index) => (
-              <li
-                key={index}
-                className={`text-xl max-lg:text-sm ${
-                  isAbsolute ? "" : "text-primary-content"
-                } transition`}
-              >
-                <a href={page.url}>{page.name}</a>
-              </li>
-            ))}
+            {config.pages.slice(1).map((page, index) => {
+              return page.name === "Services" ? (
+                <li
+                  key={index}
+                  className={`text-xl max-lg:text-sm ${
+                    isAbsolute ? "" : "text-primary-content"
+                  } transition`}
+                >
+                  <details>
+                    <summary>
+                      <a href={page.url}>{page.name}</a>
+                    </summary>
+                    <ul className="p-2">
+                      {page.subPages?.map((subPage) => (
+                        <li key={subPage.name} className="py-2 text-base">
+                          <a href={subPage.url}>{subPage.name}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              ) : (
+                <li
+                  key={index}
+                  className={`text-xl max-lg:text-sm ${
+                    isAbsolute ? "" : "text-primary-content"
+                  } transition`}
+                >
+                  <a href={page.url}>{page.name}</a>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="navbar-center">

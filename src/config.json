@@ -15,7 +15,21 @@
     },
     {
       "name": "Services",
-      "url": "/services"
+      "url": "/services",
+      "subPages": [
+        {
+          "name": "Performance Catchups",
+          "url": "/services/performance-catchups"
+        },
+        {
+          "name": "Tax And Compliance",
+          "url": "/services/tax-and-compliance"
+        },
+        {
+          "name": "Asset Protection",
+          "url": "/services/asset-protection"
+        }
+      ]
     },
     {
       "name": "Articles",
@@ -24,6 +38,10 @@
     {
       "name": "Podcast",
       "url": "/podcast/1"
+    },
+    {
+      "name": "FAQ",
+      "url": "/faq"
     }
   ],
   "address": "123 Fake St, Auckland",
@@ -37,21 +55,6 @@
       "name": "instagram",
       "icon": "mdi:instagram",
       "url": "https://www.instagram.com/elevatestudios_nz"
-    },
-    {
-      "name": "linkedin",
-      "icon": "mdi:linkedin",
-      "url": "https://www.linkedin.com/company/elevate-studios-nz/"
-    },
-    {
-      "name": "youtube",
-      "icon": "mdi:youtube",
-      "url": "https://www.youtube.com/@ElevateStudios_NZ"
-    },
-    {
-      "name": "tiktok",
-      "icon": "ic:baseline-tiktok",
-      "url": "https://www.tiktok.com/@elevatestudios_nz?is_from_webapp=1&sender_device=pc"
     }
   ],
   "streamingPlatforms": [

@@ -22,6 +22,8 @@ import signatureImg from "../assets/images/signature.png";
 import config from "../config.json";
 import faqs from "../data/faqs";
 import type { Testimonial } from "../types/testimonial";
+import type { GoogleReview } from "../types/googleReview";
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
 const cld = new Cloudinary({
   cloud: {
@@ -57,6 +59,7 @@ res = await fetch(
   .catch((err) => {});
 
 let testimonials: Testimonial[] = [];
+let googleReviews: GoogleReview[] = [];
 
 try {
   res = await fetch(`${config.wpRootURL}/wp-json/wp/v2/testimonial?per_page=2`);
@@ -67,6 +70,20 @@ try {
     body: item.content.rendered,
     author: item.acf.author,
     location: item.acf.location,
+  }));
+} catch (err) {}
+
+try {
+  res = await fetch(
+    `${config.wpRootURL}/wp-json/wp/v2/google-review?per_page=5`
+  );
+  const data = await res.json();
+  googleReviews = data.map((item: any) => ({
+    author: item.acf.author,
+    quote: item.acf.quote,
+    profilePicture: item.acf.profile_picture
+      ? item.acf.profile_picture.sizes.medium_large
+      : null,
   }));
 } catch (err) {}
 
@@ -150,7 +167,7 @@ const turnoverBrackets = [
             <Image
               src={signatureImg}
               alt="Signature"
-              class="w-36 absolute bottom-4 -right-8"
+              class="w-36 absolute -bottom-4 -right-4"
             />
           </div>
         </div>
@@ -285,23 +302,7 @@ const turnoverBrackets = [
       View All My Case Studies
     </a>
   </SectionBlock>
-  <SectionBlock alternate heading="Frequently Asked Questions">
-    <div class="flex flex-col gap-2 max-w-5xl mx-auto">
-      {
-        faqs.map((faq, index) => (
-          <div class="collapse collapse-arrow bg-base-100 border border-base-300">
-            <input
-              type="radio"
-              name="my-accordion-2"
-              checked={index == 0 && "checked"}
-            />
-            <div class="collapse-title font-semibold">{faq.question}</div>
-            <div class="collapse-content text-sm">{faq.answer}</div>
-          </div>
-        ))
-      }
-    </div>
-  </SectionBlock>
+  <AnimatedTestimonials client:only="react" testimonials={googleReviews} />
   <SectionBlock heading="Contact Me">
     <form
       method="post"
