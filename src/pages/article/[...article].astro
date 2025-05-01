@@ -10,13 +10,12 @@ import config from "../../config.json";
 const { article } = Astro.params;
 
 const res = await fetch(
-  `${config.wpRootURL}/wp-json/wp/v2/posts?categories=3&status=publish`
+  `${config.wpRootURL}/wp-json/wp/v2/posts?categories=3&status=publish&slug=${article}`
 );
 if (!res.ok) {
   throw new Error(`Failed to fetch posts: ${res.statusText}`);
 }
-const posts = await res.json();
-const articleData = posts.find((post: any) => post.slug === article);
+const articleData = await res.json();
 
 const authorRes = await fetch(
   `${config.wpRootURL}/wp-json/wp/v2/users/${articleData.author}`
