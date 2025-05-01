@@ -15,7 +15,8 @@ const res = await fetch(
 if (!res.ok) {
   throw new Error(`Failed to fetch posts: ${res.statusText}`);
 }
-const articleData = await res.json();
+const posts = await res.json();
+const articleData = posts.find((post: any) => post.slug === article);
 
 const authorRes = await fetch(
   `${config.wpRootURL}/wp-json/wp/v2/users/${articleData.author}`
