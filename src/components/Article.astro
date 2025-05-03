@@ -1,0 +1,32 @@
+---
+const { article } = Astro.props;
+
+import Prose from "./Prose.astro";
+
+const date = new Date(article.date).toLocaleDateString("en-NZ", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
+  <h1
+    set:html={article.title.rendered}
+    class="text-primary font-bold text-xl text-center"
+  />
+  <p class="text-center font-light">{date}</p>
+  <Prose>
+    <p
+      set:html={article.excerpt.rendered}
+      class="whitespace-pre-line font-light"
+    />
+  </Prose>
+  <a
+    href={`/free-article/${article.slug}`}
+    class="btn btn-accent w-fit mx-auto mt-auto"
+    aria-label={`Read more about ${article.title.rendered}`}
+  >
+    Read More
+  </a>
+</div>

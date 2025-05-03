@@ -16,12 +16,32 @@ if (!res.ok) {
   throw new Error(`Failed to fetch posts: ${res.statusText}`);
 }
 const posts = await res.json();
-const articleData = posts.find((post: any) => post.slug === article);
+const articleData = posts[0];
+
+if (!articleData) {
+  throw new Error(`Failed to fetch post: ${article}`);
+}
 
 const authorRes = await fetch(
   `${config.wpRootURL}/wp-json/wp/v2/users/${articleData.author}`
 );
 const authorData = await authorRes.json();
+
+if (!authorData) {
+  throw new Error(`Failed to fetch author: ${articleData.author}`);
+}
+
+const prevRes = await fetch(
+  `${config.wpRootURL}/wp-json/wp/v2/posts?categories=3&before=${articleData.date}&orderby=date&order=desc&per_page=1`
+);
+const prevPosts = await prevRes.json();
+const prevPost = prevPosts[0] || null;
+
+const nextRes = await fetch(
+  `${config.wpRootURL}/wp-json/wp/v2/posts?categories=3&after=${articleData.date}&orderby=date&order=asc&per_page=1`
+);
+const nextPosts = await nextRes.json();
+const nextPost = nextPosts[0] || null;
 
 const truncatedTitle =
   articleData.title.rendered.length > 52
@@ -32,7 +52,7 @@ const truncatedTitle =
 <Layout title={articleData.title.rendered}>
   <div class="breadcrumbs text-sm ml-8">
     <ul>
-      <li><a href="/articles">Articles</a></li>
+      <li><a href="/free-articles">Free Articles</a></li>
       <li>
         {truncatedTitle}
       </li>
@@ -74,4 +94,33 @@ const truncatedTitle =
       <div set:html={articleData.content.rendered} />
     </Prose>
   </article>
+  <div class="flex w-full justify-between pb-8 px-8">
+    {
+      prevPost ? (
+        <a
+          href={`/free-article/${prevPost.slug}`}
+          class="btn max-w-96 h-full w-full text-left p-2"
+        >
+          <Icon name="mdi:less-than" class="font-bold text-4xl" />
+          {prevPost.title.rendered}
+        </a>
+      ) : (
+        <div />
+      )
+    }
+
+    {
+      nextPost ? (
+        <a
+          href={`/free-article/${nextPost.slug}`}
+          class="btn max-w-96 h-full w-full text-right p-2"
+        >
+          {nextPost.title.rendered}
+          <Icon name="mdi:greater-than" class="font-bold text-4xl" />
+        </a>
+      ) : (
+        <div />
+      )
+    }
+  </div>
 </Layout>

@@ -6,6 +6,7 @@ import { getEntry, render } from "astro:content";
 import Prose from "../../components/Prose.astro";
 import SectionBlock from "../../components/blocks/SectionBlock.astro";
 import config from "../../config.json";
+import Article from "@/components/Article.astro";
 
 const pageNo = parseInt(Astro.params.pageNo || "1", 10);
 if (!pageNo) {
@@ -20,45 +21,23 @@ const res = await fetch(
 if (!res.ok) {
   throw new Error(`Failed to fetch posts: ${res.statusText}`);
 }
-const posts = await res.json();
-const publishedPosts = posts.filter((post: any) => post.status === "publish");
+const articles = await res.json();
 ---
 
 <Layout title="Articles">
   <SectionBlock heading="All Articles">
     <div class="grid grid-cols-3 max-md:grid-cols-1 gap-16 max-md:gap-8">
-      {
-        publishedPosts.map((post: any) => (
-          <div class="flex flex-col gap-4 bg-base-200 p-12 rounded-2xl">
-            <h1
-              set:html={post.title.rendered}
-              class="text-primary font-bold text-xl text-center"
-            />
-            <Prose>
-              <p
-                set:html={post.excerpt.rendered}
-                class="whitespace-pre-line font-light"
-              />
-            </Prose>
-            <a
-              href={`/article/${post.slug}`}
-              class="btn btn-accent w-fit mx-auto"
-            >
-              Read More
-            </a>
-          </div>
-        ))
-      }
+      {articles.map((post: any) => <Article article={post} />)}
     </div>
     {
-      publishedPosts.length < perPageNo && (
+      articles.length < perPageNo && (
         <p class="text-center text-xl font-light">You've reached the end</p>
       )
     }
     <div class="flex w-full justify-between">
       {
         pageNo > 1 ? (
-          <a href={`/articles/${pageNo - 1}`} class="btn">
+          <a href={`/free-articles/${pageNo - 1}`} class="btn">
             Previous
           </a>
         ) : (
@@ -67,8 +46,8 @@ const publishedPosts = posts.filter((post: any) => post.status === "publish");
       }
 
       {
-        publishedPosts.length == perPageNo ? (
-          <a href={`/articles/${pageNo + 1}`} class="btn">
+        articles.length == perPageNo ? (
+          <a href={`/free-articles/${pageNo + 1}`} class="btn">
             Next
           </a>
         ) : (
